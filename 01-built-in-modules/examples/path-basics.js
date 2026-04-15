@@ -1,21 +1,18 @@
-const path = require('path');
+const path = require('node:path');
 
-// join — combines path segments
-console.log(path.join('/users', 'jon', 'documents', 'file.txt'));
+console.log(__dirname);
+console.log(__filename);
 
-// resolve — returns an absolute path
-console.log(path.resolve('src', 'index.js'));
+// console.log(path.extname(__filename));
+// console.log(path.extname(__dirname));
 
-// basename — file name from a path
-console.log(path.basename('/home/jon/project/app.js')); // 'app.js'
+// console.log(path.isAbsolute(__dirname));
+// console.log(path.isAbsolute('../folder'));
 
-// dirname — directory from a path
-console.log(path.dirname('/home/jon/project/app.js')); // '/home/jon/project'
+// console.log(Object.getOwnPropertyNames(path));
 
-// extname — file extension
-console.log(path.extname('server.js'));   // '.js'
-console.log(path.extname('data.json'));   // '.json'
+// console.log(path.join('folder1', './folder2', 'index.html'));
 
-// parse — breaks a path into its components
-console.log(path.parse('/home/jon/project/app.js'));
-// { root: '/', dir: '/home/jon/project', base: 'app.js', ext: '.js', name: 'app' }
+console.log(Object.getOwnPropertyNames(path));
+
+console.log(path.parse(__filename));
