@@ -1,4 +1,4 @@
-const os = require('os');
+const os = require('node:os');
 
 // Platform info
 console.log('Platform:', os.platform());   // 'darwin', 'win32', 'linux'
