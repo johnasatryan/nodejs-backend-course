@@ -1,39 +1,104 @@
-const EventEmitter = require('events');
+// const EventEmitter = require('node:events');
 
-// Create an emitter instance
-const emitter = new EventEmitter();
+const { EventEmitter } = require('node:stream');
 
-// Register a listener
-emitter.on('greet', (name) => {
-  console.log(`Hello, ${name}!`);
+// const event = new EventEmitter();
+
+// // // console.log('start');
+// // // event.on('click', (value1, value2) => {
+// // //   console.log('clicked...');
+// // //   console.log(value1, value2);
+// // // });
+
+// // // event.emit('click', 23, 55);
+
+// // // console.log('end');
+
+// // // event.on('click', async (url) => {
+// // //   const res = await fetch(url);
+// // //   console.log(res.status);
+// // // });
+
+// // // event.emit('click', 'https://picsartacademy.am');
+// // // event.emit('click', 'https://google.com');
+
+// // async function moo(url) {
+// //   const res = await fetch(url);
+// //   console.log(res.status);
+// // }
+
+// // event.on('click', moo);
+// // event.on('click', () => {
+// //   console.log('hello');
+// // });
+
+// // event.emit('click', 'https://picsartacademy.am');
+// // event.emit('click', 'https://google.com');
+
+// // event.addListener('close', () => {
+// //   console.log('event closed');
+// // });
+
+// // console.log(event.eventNames());
+
+// class CustomEmitter {
+//   constructor() {
+//     this.listeners = [];
+//   }
+
+//   on(eventName, listener) {
+//     this.listeners.push({ eventName, listener });
+//   }
+
+//   emit(eventName, ...args) {
+//     const listeners = this.listeners.filter((v) => v.eventName === eventName);
+//     for (const { listener } of listeners) {
+//       listener(...args);
+//     }
+//   }
+// }
+
+// const Event = new CustomEmitter();
+
+// Event.on('click', () => {
+//   console.log('bye');
+// });
+// Event.on('click', () => {
+//   console.log('hello');
+// });
+
+// Event.emit('click', 'https://picsartacademy.am');
+// Event.emit('click', 'https://google.com');
+
+const http = require('node:http');
+
+const server = http.createServer((req, res) => {
+  req.on('data', (chunk) => {
+    console.log(chunk);
+  });
+
+  req.on('close', () => {
+    console.log('connection closed');
+  });
+
+  res.write('inch es uzum?');
+  console.log(req.eventNames());
+
+  res.end(() => {});
 });
 
-// Register a one-time listener
-emitter.once('welcome', (name) => {
-  console.log(`Welcome for the first time, ${name}!`);
+server.listen(3000, () => {
+  console.log('Server is runing...');
 });
 
-// Emit events
-emitter.emit('greet', 'Jon');
-emitter.emit('greet', 'Student');
+// class Mlass extends EventEmitter {
+//   constructor() {
+//     super();
+//   }
 
-emitter.emit('welcome', 'Jon');     // prints
-emitter.emit('welcome', 'Student'); // does NOT print (once)
+//   handsOn(listener) {
+//     this.addListener(listener);
+//   }
+// }
 
-// --- Practical example: a simple logger ---
-
-class Logger extends EventEmitter {
-  log(message) {
-    console.log(`[LOG] ${message}`);
-    this.emit('logged', { message, timestamp: new Date() });
-  }
-}
-
-const logger = new Logger();
-
-logger.on('logged', (data) => {
-  console.log('Event received:', data);
-});
-
-logger.log('Server started');
-logger.log('User connected');
+// const event = new Mlass();
