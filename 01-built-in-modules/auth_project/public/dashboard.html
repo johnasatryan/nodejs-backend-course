@@ -8,10 +8,34 @@
   <body>
     <div class="card welcome">
       <h1>Dashboard</h1>
-      <p id="user">Loading...</p>
+      <div id="email"></div>
       <button id="logout">Log out</button>
     </div>
 
-    <script></script>
+    <script>
+      (async function () {
+        const token = localStorage.getItem('token');
+
+        // check token exist or not
+
+        try {
+          const res = await fetch('http://localhost:3001/api/me', {
+            method: 'GET',
+            headers: {
+              'Content-type': 'application/json',
+              Authorization: token,
+            },
+          });
+
+          const data = await res.json();
+
+          console.log(data);
+          const p = document.getElementById('email');
+          p.textContent = data.user.email;
+        } catch (err) {
+          console.log(err);
+        }
+      })();
+    </script>
   </body>
 </html>
